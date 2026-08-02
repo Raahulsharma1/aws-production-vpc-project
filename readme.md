@@ -1,5 +1,6 @@
 ![AWS VPC Architecture](architecture/vpc-example-private-subnets.png)
 
+
 AWS Production-Style VPC with Public & Private Subnets, Bastion Host, and Application Load Balancer
 
 A hands-on AWS networking project built using the AWS Management Console to understand core networking concepts before moving to Infrastructure as Code (Terraform).
