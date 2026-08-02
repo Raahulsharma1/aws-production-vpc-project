@@ -1,6 +1,5 @@
 ![AWS VPC Architecture](architecture/vpc-example-private-subnets.png)
 
-<img src="architecture/vpc-example-private-subnets.png" width="800">
 
 AWS Production-Style VPC with Public & Private Subnets, Bastion Host, and Application Load Balancer
 
