@@ -1,10 +1,10 @@
+![AWS VPC Architecture](architecture/vpc-example-private-subnets.png)
+
 AWS Production-Style VPC with Public & Private Subnets, Bastion Host, and Application Load Balancer
 
 A hands-on AWS networking project built using the AWS Management Console to understand core networking concepts before moving to Infrastructure as Code (Terraform).
 
-
-
- Project Overview
+Project Overview
 
 This project demonstrates how to build a production-style AWS network architecture from scratch using the AWS Console.
 
@@ -26,32 +26,32 @@ The project follows:
 AWS Official Documentation
 Abhishek Veeramalla's AWS Series (Video #7)
 🏗 Architecture
-                                Internet
-                                    │
-                                    │
-                           Internet Gateway
-                                    │
-                      ┌─────────────┴─────────────┐
-                      │                           │
-               Public Subnet 1A           Public Subnet 1B
-                      │
-               Bastion Host (Ubuntu)
-                      │
-                SSH (Private IP)
-                      │
-          ┌───────────┴───────────┐
-          │                       │
-  Private Subnet 1A       Private Subnet 1B
-          │                       │
-     Ubuntu + Nginx         Ubuntu + Nginx
-          │                       │
-          └───────────┬───────────┘
-                      │
-                Target Group
-                      │
-          Application Load Balancer
-                      │
-               Browser Requests
+Internet
+│
+│
+Internet Gateway
+│
+┌─────────────┴─────────────┐
+│ │
+Public Subnet 1A Public Subnet 1B
+│
+Bastion Host (Ubuntu)
+│
+SSH (Private IP)
+│
+┌───────────┴───────────┐
+│ │
+Private Subnet 1A Private Subnet 1B
+│ │
+Ubuntu + Nginx Ubuntu + Nginx
+│ │
+└───────────┬───────────┘
+│
+Target Group
+│
+Application Load Balancer
+│
+Browser Requests
 🚀 Services Used
 Amazon VPC
 EC2
@@ -67,15 +67,15 @@ Nginx
 US East (N. Virginia)
 📂 Network Configuration
 VPC
-Property	Value
-Name	first-prod-style-aws-vpc-project
-CIDR	10.0.0.0/16
+Property Value
+Name first-prod-style-aws-vpc-project
+CIDR 10.0.0.0/16
 Subnets
-Subnet	Type	AZ	CIDR
-Public Subnet 1A	Public	us-east-1a	10.0.0.0/24
-Private Subnet 1A	Private	us-east-1a	10.0.1.0/24
-Public Subnet 1B	Public	us-east-1b	10.0.2.0/24
-Private Subnet 1B	Private	us-east-1b	10.0.3.0/24
+Subnet Type AZ CIDR
+Public Subnet 1A Public us-east-1a 10.0.0.0/24
+Private Subnet 1A Private us-east-1a 10.0.1.0/24
+Public Subnet 1B Public us-east-1b 10.0.2.0/24
+Private Subnet 1B Private us-east-1b 10.0.3.0/24
 🌐 Internet Gateway
 
 One Internet Gateway attached to the VPC.
@@ -83,7 +83,7 @@ One Internet Gateway attached to the VPC.
 Public Route Table:
 
 Destination : 0.0.0.0/0
-Target      : Internet Gateway
+Target : Internet Gateway
 🔐 Bastion Host
 
 A Bastion Host was deployed in the Public Subnet to securely access EC2 instances running in Private Subnets.
@@ -121,14 +121,14 @@ Health Checks
 
 Health Check Configuration
 
-Property	Value
-Protocol	HTTP
-Path	/
-Success Code	200
-Healthy Threshold	5
-Unhealthy Threshold	2
-Timeout	5 Seconds
-Interval	30 Seconds
+Property Value
+Protocol HTTP
+Path /
+Success Code 200
+Healthy Threshold 5
+Unhealthy Threshold 2
+Timeout 5 Seconds
+Interval 30 Seconds
 🔐 Security Groups
 Bastion Host
 
@@ -194,10 +194,11 @@ Instance 1
 Traffic alternated correctly between both EC2 instances.
 
 🐞 Challenges Faced & Solutions
+
 1. Wrong SSH Username
-Problem
-Permission denied (publickey)
-Cause
+   Problem
+   Permission denied (publickey)
+   Cause
 
 Used:
 
@@ -210,8 +211,7 @@ Solution
 
 Connected using:
 
-ssh -i Test.pem ubuntu@<Public-IP>
-2. Python HTTP Server
+ssh -i Test.pem ubuntu@<Public-IP> 2. Python HTTP Server
 Problem
 400 Bad Request
 
@@ -226,7 +226,7 @@ Solution
 Installed and configured Nginx.
 
 3. Nginx Serving Default Page
-Problem
+   Problem
 
 Custom HTML was not displayed.
 
@@ -239,6 +239,7 @@ Solution
 Used:
 
 sudo tee /var/www/html/index.html > /dev/null <<EOF
+
 <html>
 ...
 </html>
@@ -262,7 +263,7 @@ Solution
 Re-registered instance on port 80.
 
 5. Security Group & VPC Mismatch
-Problem
+   Problem
 
 Auto Scaling Group creation failed due to Security Group and VPC mismatch.
 
